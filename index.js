@@ -49,6 +49,14 @@ client.connect((err) => {
       res.send(result.deletedCount > 0);
     });
   });
+
+  app.get("/order", (req, res) => {
+    const email = req.query.email;
+
+    orderCollection.find({ email: email }).toArray((err, doc) => {
+      res.send(doc);
+    });
+  });
 });
 
-app.listen(process.env.DB_PORT || port);
+app.listen(process.env.PORT || port);
