@@ -9,7 +9,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
-const port = process.env.DB_PORT || 5000;
+const port = 5000;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,4 +51,4 @@ client.connect((err) => {
   });
 });
 
-app.listen(port);
+app.listen(process.env.DB_PORT || port);
