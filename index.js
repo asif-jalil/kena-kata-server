@@ -57,6 +57,21 @@ client.connect((err) => {
       res.send(doc);
     });
   });
+
+  app.get("/loadProduct/:id", (req, res) => {
+    const id = req.params.id;
+    productCollection.find({ _id: ObjectID(id) }).toArray((err, doc) => {
+      res.send(doc[0]);
+    });
+  });
+
+  app.patch("/updateProduct/:id", (req, res) => {
+    const id = req.params.id;
+    const product = req.body;
+    productCollection.updateOne({ _id: ObjectID(id) }, { $set: product }).then((result) => {
+      res.send(result.modifiedCount > 0);
+    });
+  });
 });
 
 app.listen(process.env.PORT || port);
